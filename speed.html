@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>speed</title>
+
+<link rel="stylesheet" href="./css/styles.css">
+
+<style>
+  
+
+    
+    canvas#compare{
+        position: absolute;
+        top: 50%; /* Position initiale au centre de l'écran */
+        left: 0;
+        width: 4px; /* Largeur du bâton */
+        height: 60px; /* Hauteur du bâton */
+        transform-origin: top;
+    }
+
+
+    .debug {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .debug d {
+        position: absolute;
+        width: 2px; /* Largeur du bâton */
+        height: 60px; /* Hauteur du bâton */
+        background-color: #c3533c;
+        opacity:40%; 
+        border-radius: 2px; /* Coins arrondis */
+        transform-origin: top;
+        top: 50%; /* Alignement vertical au centre de l'élément parent */
+        transform: translateY(-50%); /* Décalage de moitié de la hauteur pour l'aligner correctement */
+    }
+
+
+    .debug2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .debug2 d {
+        position: absolute;
+        width: 2px; /* Largeur du bâton */
+        height: 60px; /* Hauteur du bâton */
+        background-color: #0ab; 
+        opacity: 40%;
+        border-radius: 2px; /* Coins arrondis */
+        transform-origin: top;
+        top: 20%; /* Alignement vertical au centre de l'élément parent */
+        transform: translateY(-50%); /* Décalage de moitié de la hauteur pour l'aligner correctement */
+    }
+
+   
+ 
+</style>
+</head>
+<body>
+    <h1>Speed graph editor </h1>
+
+   
+
+    <section id="preview">
+        
+        <h1>
+
+            
+            <button id="go">play!</button>
+        </h1>
+    
+        <canvas id="current" width="60" height="60"></canvas>
+        <canvas id="compare" width="60" height="60"></canvas>
+    </section>
+    
+
+<div id="curve-display">
+    <a href="index.html" class="btn btn-light ">Revenir à l'accueil</a>
+	<div class="coordinate-plane">
+		<span class="control-point" id="P0"></span>
+		<button class="control-point" id="P1" style="left:50px; top: 250px;"></button>
+		<button class="control-point" id="P2" style="left:250px; top: 250px;"></button>
+		<span class="control-point" id="P3"></span>
+
+		<canvas height="600" width="300" id="curve"></canvas>
+		
+	</div>
+	
+</div>
+
+
+<section id="library">
+	<footer></footer>
+
+
+</section>
+
+<div class="debug"></div>
+<div class="debug2"></div>
+
+<script src="./js/chainvas.js"></script>
+<script src="./js/environnement.js"></script>
+<script src="./js/cubic-bezier.js"></script>
+<script src="./js/interaction.js"></script>
+
+<script>
+    let currentCanvasElement = document.getElementById('current');
+    let debugContainer = document.querySelector('.debug');
+
+    function debug(timestamp) {
+        let rect = currentCanvasElement.getBoundingClientRect();
+        debugContainer.innerHTML += '<d style="top:' + (rect.top + rect.height / 2) + 'px; left:' + (rect.left + rect.width / 2) + 'px;"></d>';
+
+        window.requestAnimationFrame(debug);
+    }
+
+    document.getElementById('go').addEventListener('click', function() {
+        // Supprimer les éléments <d> précédents
+        debugContainer.innerHTML = '';
+        // Démarrer la création des nouveaux éléments <d>
+        window.requestAnimationFrame(debug);
+    });
+</script>
+<script>
+    let currentCanvasElement2 = document.getElementById('compare');
+    let debugContainer2 = document.querySelector('.debug2');
+
+    function debug2(timestamp) {
+        let rect = currentCanvasElement2.getBoundingClientRect();
+        debugContainer2.innerHTML += '<d style="top:' + (rect.top + rect.height / 2) + 'px; left:' + (rect.left + rect.width / 2) + 'px;"></d>';
+
+        window.requestAnimationFrame(debug2);
+    }
+
+    document.getElementById('go').addEventListener('click', function() {
+        // Supprimer les éléments <d> précédents
+        debugContainer2.innerHTML = '';
+        // Démarrer la création des nouveaux éléments <d>
+        window.requestAnimationFrame(debug2);
+    });
+</script>
+</body>
+</html>
