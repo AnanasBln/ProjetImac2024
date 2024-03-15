@@ -648,7 +648,7 @@ body > footer {
 
     canvas#current{
         position: absolute;
-        top: 200%; /* Position initiale au centre de l'écran */
+        top: 20%; /* Position initiale au centre de l'écran */
         left: 0;
         width: 10px; /* Largeur du bâton */
         height: 60px; /* Hauteur du bâton */
